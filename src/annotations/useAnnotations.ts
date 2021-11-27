@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Annotation } from "./annotation";
-import { groupBy } from "./groupBy";
+import { groupBy } from "../utils/groupBy";
 
 export const useAnnotations = () => {
   const [annotations, setAnnotations] = useState<Annotation[]>([]);

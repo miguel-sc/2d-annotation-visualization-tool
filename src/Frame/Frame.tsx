@@ -1,4 +1,4 @@
-import { Annotation } from "../annotation";
+import { Annotation } from "../annotations/annotation";
 import styles from "./Frame.module.css";
 
 export interface FrameProps {

@@ -1,6 +1,6 @@
 import { Frame } from "./Frame/Frame";
 import { FrameViewer } from "./FrameViewer/FrameViewer";
-import { useAnnotations } from "./useAnnotations";
+import { useAnnotations } from "./annotations/useAnnotations";
 
 function App() {
   const { frameIds, annotationsByFrameId } = useAnnotations();
