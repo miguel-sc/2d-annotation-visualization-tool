@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
-import { Annotation } from "./annotation";
 import "./App.css";
 import { Frame } from "./Frame";
-import { groupBy } from "./groupBy";
+import { useAnnotations } from "./useAnnotations";
 
 function App() {
-  const [annotations, setAnnotations] = useState<Annotation[]>([]);
-  const annotationsByFrameId = groupBy(annotations, ({ frameId }) => frameId);
-  const frameIds = [...new Set(annotations.map(({ frameId }) => frameId))];
-  useEffect(() => {
-    fetch("/data/annotations.json")
-      .then((data) => data.json())
-      .then((data) => setAnnotations(data.result));
-  }, []);
+  const { frameIds, annotationsByFrameId } = useAnnotations();
   return (
     <div>
       {frameIds.map((frameId) => (
