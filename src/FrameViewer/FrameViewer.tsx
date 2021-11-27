@@ -4,17 +4,14 @@ import styles from "./FrameViewer.module.css";
 
 export interface FrameViewerProps {
   children: ReactNode;
-  width: number;
-  height: number;
 }
 
 const imgNaturalWidth = 3856;
-const imgNaturalHeight = 1936;
 
-export const FrameViewer = ({ children, width, height }: FrameViewerProps) => {
+export const FrameViewer = ({ children }: FrameViewerProps) => {
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
   const numberOfFrames = React.Children.count(children);
-  const scale = Math.min(width / imgNaturalWidth, height / imgNaturalHeight);
+  const scale = window.innerWidth / imgNaturalWidth;
   return (
     <div>
       <FrameViewerControls
