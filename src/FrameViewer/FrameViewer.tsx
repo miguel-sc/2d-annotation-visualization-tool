@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from "react";
+import styles from "./FrameViewer.module.css";
 
 export interface FrameViewerProps {
   children: ReactNode;
@@ -22,10 +23,8 @@ export const FrameViewer = ({ children }: FrameViewerProps) => {
       </button>
       {React.Children.map(children, (child, frameIndex) => (
         <div
-          style={{
-            position: "absolute",
-            opacity: frameIndex === currentFrameIndex ? 1 : 0,
-          }}
+          className={styles.frameContainer}
+          style={{ opacity: frameIndex === currentFrameIndex ? 1 : 0 }}
         >
           {child}
         </div>
