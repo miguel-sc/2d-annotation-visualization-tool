@@ -1,0 +1,16 @@
+.frameViewerControls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.frameViewerControlsInnerContainer {
+  width: 400px;
+  max-width: 100%;
+  display: flex;
+}
+
+.frameRangeSlider {
+  flex: 1;
+}

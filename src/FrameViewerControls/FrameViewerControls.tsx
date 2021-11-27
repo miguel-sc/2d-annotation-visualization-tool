@@ -1,3 +1,5 @@
+import styles from "./FrameViewerControls.module.css";
+
 interface FrameViewerControlsProps {
   value: number;
   maxValue: number;
@@ -10,14 +12,11 @@ export const FrameViewerControls = ({
   onChange,
 }: FrameViewerControlsProps) => {
   return (
-    <div>
-      <button onClick={() => onChange(value - 1)} disabled={value === 0}>
-        -
-      </button>
-      <button onClick={() => onChange(value + 1)} disabled={value === maxValue}>
-        +
-      </button>
-      <div>
+    <div className={styles.frameViewerControls}>
+      <div className={styles.frameViewerControlsInnerContainer}>
+        <button onClick={() => onChange(value - 1)} disabled={value === 0}>
+          -
+        </button>
         <input
           type="range"
           id="frameNumber"
@@ -25,9 +24,16 @@ export const FrameViewerControls = ({
           min={0}
           max={maxValue}
           value={value}
+          className={styles.frameRangeSlider}
+          aria-label="frame number"
           onChange={(e) => onChange(Number(e.target.value))}
         />
-        <label htmlFor="frameNumber">Frame number</label>
+        <button
+          onClick={() => onChange(value + 1)}
+          disabled={value === maxValue}
+        >
+          +
+        </button>
       </div>
     </div>
   );
