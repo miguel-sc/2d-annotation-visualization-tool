@@ -1,46 +1,80 @@
-# Getting Started with Create React App
+# 2D annotation visualization tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting started
 
-## Available Scripts
+1. add the `data` folder to `public/data` with the `annotations.json` and
+   `images` in it.
+2. run `npm install` to install the dependencies
+3. run `npm start` and visit [http://localhost:3000](http://localhost:3000) to
+   view it in the browser
 
-In the project directory, you can run:
+## Notes
 
-### `npm start`
+I created a react app with
+[Create React App](https://github.com/facebook/create-react-app), because that's
+the framework I'm most familiar with. I could have also used a different
+framework, like Vue, but it would have taken me a bit more time. For the purpose
+of this challenge, I decided not to use any external libraries and just use the
+tools that React offers. I invested my time into implementing a good UX, but
+ugly UI because I thought the design is less important. It was a really fun
+challenge and I like that it's related to what you are building at work.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### What I implemented
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+I prioritized implementing the requirements in the simplest way I could come up
+with. I added the assets to the public directory, fetched the annotations on
+mount, transformed them into a list of frames, rendered the list with images and
+bounding boxes on top of them for the annotations. That took me about 30
+minutes. I spent the rest of my time refactoring the code and improving the UX.
+I tried to stay in the 4 hour window. Since the data is from a video, I decided
+to only show one image at a time and add a range slider with button controls to
+navigate them. I'm loading all images at the same time for simplicity, we would
+need to change that to improve the website performance.
 
-### `npm test`
+### If I had more time
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Here are a few suggestions of how we could improve the UX:
 
-### `npm run build`
+- add a play/pause button to play the frames like a video. we could also add
+  options to adjust the frame rate for example.
+- show annotation meta data on hovering the bounding box. Since the boxes can
+  overlap, I would show the annotation who's center is closest to the mouse
+  pointer. If that is not enough, we could also show the list of annotations for
+  users to navigate through.
+- possibility to only show one annotation at a time and hide all the other
+  bounding boxes. This can be done with the `temporalId` property, to show the
+  same annotation across all frames.
+- add a shareable link for the current frame
+- implement zoom and panning for the images
+- resize frames when resizing window
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+And here are some suggestions for improving the code:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- transform the annotations data into our own datatype right after fetch. This
+  makes the data more convenient for us to work with.
+- Add some tests. I think we can test in jest that we are fetching the data and
+  rendering the correct list of frames with annotations. We could use
+  [Mock Service Worker](https://mswjs.io/) to mock the http requests. To verify
+  that the bounding boxes look right can be done with a visual screenshot
+  testing tool.
+- I rendered `img` tags with `div` tags in front of them, because this was the
+  simplest solution for the requirements. I think if we need more fancy features
+  in the future, we could replace those tags with a WebGL renderer.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Enterprise ready design
 
-### `npm run eject`
+Here is a list of things that we would need to implement:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- The annotations and images are already loaded from a web service. Currently it
+  is fetching it from the same host, but we can change the url to any other
+  server and it will work. I would make this configurable with an environment
+  variable. In order to be able to display different videos, we could take a
+  video id as a url parameter, or add a separate page to select a video.
+- For video clips with thousands of frames: We would need to optimize our
+  `FrameViewer` to not load thousands of frames at the same time. We could do it
+  like in videos, load the current frame first and then the following frames. If
+  the `annotation.json` file gets too big, we could send it in chunks.
+- For zooming and panning images: this can be done with css transforms
+  (translate and scale). But if we already plan to add more advanced feature,
+  like for example image filters, it could make more sense for us to use a WebGL
+  renderer instead of HTML tags with CSS.
