@@ -1,5 +1,4 @@
-import "./App.css";
-import { Frame } from "./Frame";
+import { Frame } from "./Frame/Frame";
 import { useAnnotations } from "./useAnnotations";
 
 function App() {

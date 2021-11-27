@@ -1,4 +1,5 @@
-import { Annotation } from "./annotation";
+import { Annotation } from "../annotation";
+import styles from "./Frame.module.css";
 
 export interface FrameProps {
   src: string;
@@ -7,11 +8,11 @@ export interface FrameProps {
 
 export const Frame = ({ src, annotations }: FrameProps) => {
   return (
-    <div className="frame">
-      <img className="frame-image" src={src} alt="frame" />
+    <div className={styles.frame}>
+      <img src={src} alt="frame" />
       {annotations.map(({ x, y, height, width, annotationId }) => (
         <div
-          className="annotation"
+          className={styles.annotation}
           key={annotationId}
           style={{ left: x, top: y, height, width }}
         />
