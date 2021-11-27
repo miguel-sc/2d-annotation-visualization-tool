@@ -9,7 +9,7 @@ export interface FrameProps {
 export const Frame = ({ src, annotations }: FrameProps) => {
   return (
     <div className={styles.frame}>
-      <img src={src} alt="frame" />
+      <img src={src} alt="frame" className={styles.frameImage} />
       {annotations.map(({ x, y, height, width, annotationId }) => (
         <div
           className={styles.annotation}

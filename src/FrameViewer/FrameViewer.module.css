@@ -1,5 +1,7 @@
 .frameContainer {
   position: absolute;
-  transform: scale(0.2);
+}
+
+.frames {
   transform-origin: 0 0;
 }

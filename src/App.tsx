@@ -6,7 +6,7 @@ function App() {
   const { frameIds, annotationsByFrameId } = useAnnotations();
   return (
     <div>
-      <FrameViewer>
+      <FrameViewer width={window.innerWidth} height={window.innerHeight}>
         {frameIds.map((frameId) => (
           <Frame
             key={frameId}
