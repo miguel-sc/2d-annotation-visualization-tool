@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
+import { Annotation } from "./annotation";
 import "./App.css";
+import { Frame } from "./Frame";
 import { groupBy } from "./groupBy";
-
-interface Annotation {
-  annotationId: string;
-  frameId: string;
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-}
 
 function App() {
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
@@ -23,22 +16,11 @@ function App() {
   return (
     <div>
       {frameIds.map((frameId) => (
-        <div className="frame" key={frameId}>
-          <img
-            className="frame-image"
-            src={`/data/images/${frameId}.jpg`}
-            alt="frame"
-          />
-          {annotationsByFrameId[frameId].map(
-            ({ x, y, height, width, annotationId }) => (
-              <div
-                className="annotation"
-                key={annotationId}
-                style={{ left: x, top: y, height, width }}
-              />
-            )
-          )}
-        </div>
+        <Frame
+          key={frameId}
+          src={`/data/images/${frameId}.jpg`}
+          annotations={annotationsByFrameId[frameId]}
+        />
       ))}
     </div>
   );
