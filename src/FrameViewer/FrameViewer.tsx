@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from "react";
+import { FrameViewerControls } from "../FrameViewerControls/FrameViewerControls";
 import styles from "./FrameViewer.module.css";
 
 export interface FrameViewerProps {
@@ -10,30 +11,11 @@ export const FrameViewer = ({ children }: FrameViewerProps) => {
   const numberOfFrames = React.Children.count(children);
   return (
     <div>
-      <button
-        onClick={() => setCurrentFrameIndex((index) => index - 1)}
-        disabled={currentFrameIndex === 0}
-      >
-        -
-      </button>
-      <button
-        onClick={() => setCurrentFrameIndex((index) => index + 1)}
-        disabled={currentFrameIndex === numberOfFrames - 1}
-      >
-        +
-      </button>
-      <div>
-        <input
-          type="range"
-          id="frameNumber"
-          name="frameNumber"
-          min={0}
-          max={numberOfFrames - 1}
-          value={currentFrameIndex}
-          onChange={(e) => setCurrentFrameIndex(Number(e.target.value))}
-        />
-        <label htmlFor="frameNumber">Frame number</label>
-      </div>
+      <FrameViewerControls
+        value={currentFrameIndex}
+        maxValue={numberOfFrames - 1}
+        onChange={setCurrentFrameIndex}
+      />
       {React.Children.map(children, (child, frameIndex) => (
         <div
           className={styles.frameContainer}
