@@ -7,6 +7,7 @@ export interface FrameViewerProps {
 
 export const FrameViewer = ({ children }: FrameViewerProps) => {
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+  const numberOfFrames = React.Children.count(children);
   return (
     <div>
       <button
@@ -17,10 +18,22 @@ export const FrameViewer = ({ children }: FrameViewerProps) => {
       </button>
       <button
         onClick={() => setCurrentFrameIndex((index) => index + 1)}
-        disabled={currentFrameIndex === React.Children.count(children) - 1}
+        disabled={currentFrameIndex === numberOfFrames - 1}
       >
         +
       </button>
+      <div>
+        <input
+          type="range"
+          id="frameNumber"
+          name="frameNumber"
+          min={0}
+          max={numberOfFrames - 1}
+          value={currentFrameIndex}
+          onChange={(e) => setCurrentFrameIndex(Number(e.target.value))}
+        />
+        <label htmlFor="frameNumber">Frame number</label>
+      </div>
       {React.Children.map(children, (child, frameIndex) => (
         <div
           className={styles.frameContainer}
