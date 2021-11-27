@@ -52,6 +52,8 @@ And here are some suggestions for improving the code:
 
 - transform the annotations data into our own datatype right after fetch. This
   makes the data more convenient for us to work with.
+- replace the hardcoded image size with the natural image size from the img
+  `onLoad` event
 - Add some tests. I think we can test in jest that we are fetching the data and
   rendering the correct list of frames with annotations. We could use
   [Mock Service Worker](https://mswjs.io/) to mock the http requests. To verify

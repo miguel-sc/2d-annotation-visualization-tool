@@ -6,6 +6,7 @@ export interface FrameViewerProps {
   children: ReactNode;
 }
 
+// hardcoded image width. should get that from the image onLoad event.
 const imgNaturalWidth = 3856;
 
 export const FrameViewer = ({ children }: FrameViewerProps) => {
