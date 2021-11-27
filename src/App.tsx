@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+
+interface Annotation {
+  annotationId: string;
+  frameId: string;
+}
 
 function App() {
+  const [annotations, setAnnotations] = useState<Annotation[]>();
+  const frameIds = [...new Set(annotations?.map(({ frameId }) => frameId))];
+  useEffect(() => {
+    fetch("/data/annotations.json")
+      .then((data) => data.json())
+      .then((data) => setAnnotations(data.result));
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {frameIds.map((frameId) => (
+        <img
+          className="frame-image"
+          src={`/data/images/${frameId}.jpg`}
+          alt="frame"
+          key={frameId}
+        />
+      ))}
     </div>
   );
 }
